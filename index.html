@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+    <title>My first BootstrapVue app</title>
+
+    <!-- Required Stylesheets -->
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"
+    />
+
+    <!-- Load polyfills to support older browsers -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver"></script>
+
+    <!-- Required scripts -->
+    <script src="https://unpkg.com/vue@latest/dist/vue.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+  </head>
+  <body>
+    <!-- Our application root element -->
+    <div id="app">
+
+
+
+                        <b-container>
+                            <b-jumbotron header="BootstrapVue" lead="Bootstrap v4 Components for Vue.js 2">
+                            <p>Codding challenge</p>
+                         
+                        </b-jumbotron>
+        <p class="alert alert-info" v-if="products.length===0">Products are not found</p>
+        <div class="container" v-else>
+            <div class="row">
+               
+
+                <div class="col-md-4 col-lg-4" v-for="product in products">
+
+                  
+    
+                        <div class="card border-success " >
+                           
+                                <div class="card-body ">
+            
+                                <div class="col-md-12 col-lg-12">
+                                    <img class="card-img-top" src="https://picsum.photos/300/300/?image=41" height="300px" alt="Card image cap">
+                                    <!-- <img img-src="https://picsum.photos/300/300/?image=41" height="300px"  alt=""> -->
+                                    <h5 class="text-center"><strong >{{product.name}}</strong></h5>
+                                    <h5 class="text-center"><strong>{{product.price}}</strong></h5>
+                                    <h5 ><strong>
+                                        <b-form-input type="number"  v-model.trim="product.quantity"></b-form-input>
+                                    </b-form-group>
+                                    
+                                    </strong></h5>  
+                                    
+                                </div> 
+                                
+                                
+                                </div>
+                                <div class="card-footer bg-transparent border-success text-right ">
+                                    <strong>Add To card :</strong>
+                                    <button type="submit" class="btn btn-primary" @click="addtocart(product.id)" id="addtocart"> Add To Cart</button>
+                                    
+                                </div>
+                        </div>
+                        <br>
+                        
+                    </div>
+                    <div class="col-lg-12" v-if="cart.length > 0">
+
+                    <h1>Order Details</h1>
+                    <div class="table-responsive-sm" >
+                        <table class="table">
+                            <caption>Order Details</caption>
+                            <thead>
+                                <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">name</th>
+                                <th scope="col">price</th>
+                                <th scope="col">quantity</th>
+                                <th scope="col">Total</th>
+                                <th scope="col">action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="item in cart">
+                                <th scope="row">#</th>
+                                <td>{{item.name}}</td>
+                                <td>{{item.price}}</td>
+                                <td>{{item.quantity}}</td>
+                                <td>{{item.quantity*item.price}}</td>
+                                <td> <a href="#" @click="removeitem(item.id)" class="btn btn-danger">Remove</a></td>
+                                </tr>
+                                <tr><td colspan="4" class="text-right">Total</td><td></td></tr>
+                                
+
+                        </table>
+                      </div>
+
+                    </div>
+                    
+            </div>
+        </div>
+
+     
+
+
+
+
+
+
+
+
+
+
+
+      <!-- <b-container>
+        <b-jumbotron header="BootstrapVue" lead="Bootstrap v4 Components for Vue.js 2">
+          <p>For more information visit our website</p>
+          <b-btn variant="primary" href="https://bootstrap-vue.org/">More Info</b-btn>
+        </b-jumbotron>
+
+        <b-form-group
+          horizontal
+          :label-cols="4"
+          description="Let us know your name."
+          label="Enter your name"
+        >
+          <b-form-input v-model.trim="name"></b-form-input>
+        </b-form-group>
+
+        <b-alert variant="success" :show="showAlert">Hello {{ name }}</b-alert>
+      </b-container> -->
+    </div>
+
+    <!-- Start running your app -->
+    <script>
+      window.app = new Vue({
+        el: '#app',
+        data: {
+          name: '',
+          
+          products:[
+
+            {id:1,name:"product 1", photo:"abc", price:123, quantity:6},
+            {id:2,name:"product 2", photo:"abc", price:13, quantity:5},
+            {id:3,name:"product 3", photo:"abc", price:23, quantity:4},
+          ],
+          cart:[],
+        },
+        computed: {
+
+         
+          showAlert() {
+            return this.name.length > 4 ? true : false
+          }
+        },
+        methods:{
+
+            addtocart(id){
+                // cart.push(products[id]);
+                food => food.id === 1
+                this.cart.push(this.products.find(product=>product.id==id));
+            },
+
+            removeitem(id){
+                let item=this.products.find(product=>product.id==id);
+                this.cart.splice( this.cart.indexOf(item),1);
+            }
+        }
+      })
+    </script>
+  </body>
+</html>

@@ -58,7 +58,7 @@
                                     <h5 class="text-center"><strong >{{product.name}}</strong></h5>
                                     <h5 class="text-center"><strong>{{product.price}}</strong></h5>
                                     <h5 ><strong>
-                                        <b-form-input type="number"  v-model.trim="product.quantity"></b-form-input>
+                                        <b-form-input type="number" min=0  v-model.trim="product.quantity"></b-form-input>
                                     </b-form-group>
                                     
                                     </strong></h5>  
@@ -101,7 +101,7 @@
                                 <td>{{item.quantity*item.price}}</td>
                                 <td> <a href="#" @click="removeitem(item.id)" class="btn btn-danger">Remove</a></td>
                                 </tr>
-                                <tr><td colspan="4" class="text-right">Total</td><td></td></tr>
+                                <tr><td colspan="4" class="text-right"><strong>Total</strong></td><td><strong>{{total}}</strong></td></tr>
                                 
 
                         </table>
@@ -124,23 +124,7 @@
 
 
 
-      <!-- <b-container>
-        <b-jumbotron header="BootstrapVue" lead="Bootstrap v4 Components for Vue.js 2">
-          <p>For more information visit our website</p>
-          <b-btn variant="primary" href="https://bootstrap-vue.org/">More Info</b-btn>
-        </b-jumbotron>
-
-        <b-form-group
-          horizontal
-          :label-cols="4"
-          description="Let us know your name."
-          label="Enter your name"
-        >
-          <b-form-input v-model.trim="name"></b-form-input>
-        </b-form-group>
-
-        <b-alert variant="success" :show="showAlert">Hello {{ name }}</b-alert>
-      </b-container> -->
+     
     </div>
 
     <!-- Start running your app -->
@@ -159,11 +143,17 @@
           cart:[],
         },
         computed: {
-
+          
          
-          showAlert() {
-            return this.name.length > 4 ? true : false
-          }
+          total: function(){
+            let total=0;
+            this.cart.forEach((item, i) => {
+                total += item.price * item.quantity;
+            });
+            console.log(total);
+            return total;
+          },
+                   
         },
         methods:{
 
